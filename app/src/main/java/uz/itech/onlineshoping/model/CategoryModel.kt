@@ -1,9 +1,12 @@
 package uz.itech.onlineshoping.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-//@Entity(tableName = "categories")
+
+@Entity(tableName = "categories")
 data class CategoryModel(
-    //@PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     val uid:Int,
     val id:Int,
     val title:String,
