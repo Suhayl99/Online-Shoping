@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import retrofit2.Call
@@ -22,8 +24,10 @@ import uz.itech.onlineshoping.model.BaseResponse
 import uz.itech.onlineshoping.model.CategoryModel
 import uz.itech.onlineshoping.model.OfferModel
 import uz.itech.onlineshoping.model.ProductModel
+import uz.itech.onlineshoping.screen.MainViewModel
 
 class HomeFragment : Fragment() {
+    lateinit var viewModel:MainViewModel
     var offers:List<OfferModel> = emptyList()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +35,9 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+
         _binding= FragmentHomeBinding.inflate(inflater,container,false)
+        viewModel=ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         return binding.root
     }
 
@@ -39,68 +45,33 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerCategories.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerProduct.layoutManager=LinearLayoutManager(requireContext())
-        val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://osonsavdo.devapp.uz/api/").build()
 
-        val api= retrofit!!.create(Api::class.java)
-        api.getOffers().enqueue(object : Callback<BaseResponse<List<OfferModel>>>{
-            override fun onResponse(
-                call: Call<BaseResponse<List<OfferModel>>>,
-                response: Response<BaseResponse<List<OfferModel>>>
-            ) {
-                if (response.isSuccessful && response.body()!!.success){
-                    offers= response.body()!!.data
-                    binding.carouselView.setImageListener { position, imageView ->
-                    Glide.with(imageView).load("http://osonsavdo.devapp.uz/images/${offers[position].image}").into(imageView)
-                    }
-                    binding.carouselView.pageCount=offers.count()
-                }else{
-                    Toast.makeText(requireContext(), response.body()?.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<BaseResponse<List<OfferModel>>>, t: Throwable) {
-                Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_SHORT).show()
-            }
+        viewModel.error.observe(requireActivity(), Observer {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         })
 
-        api.getCategories().enqueue(object : Callback<BaseResponse<List<CategoryModel>>>{
-            override fun onResponse(
-                call: Call<BaseResponse<List<CategoryModel>>>,
-                response: Response<BaseResponse<List<CategoryModel>>>
-            ) {
-                if (response.isSuccessful && response.body()!!.success){
-                    binding.recyclerCategories.adapter=CategoryAdapter(response.body()?.data?: emptyList())
-                }else{
-                    Toast.makeText(requireContext(), response.body()?.message, Toast.LENGTH_SHORT).show()
-                }
+        viewModel.offersData.observe(requireActivity(), Observer {
+            binding.carouselView.setImageListener { position, imageView ->
+                Glide.with(imageView).load("http://osonsavdo.devapp.uz/images/${it[position].image}").into(imageView)
             }
-
-            override fun onFailure(call: Call<BaseResponse<List<CategoryModel>>>, t: Throwable) {
-                Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_SHORT).show()
-            }
+            binding.carouselView.pageCount= it.count()
         })
 
-        api.getTopProducts().enqueue(object : Callback<BaseResponse<List<ProductModel>>>{
-
-            override fun onResponse(
-                call: Call<BaseResponse<List<ProductModel>>>,
-                response: Response<BaseResponse<List<ProductModel>>>
-            ) {
-                if (response.isSuccessful && response.body()!!.success){
-                    binding.recyclerProduct.adapter=ProductAdapter(response.body()?.data?: emptyList())
-                }else{
-                    Toast.makeText(requireContext(), response.body()?.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<BaseResponse<List<ProductModel>>>, t: Throwable) {
-                Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_SHORT).show()
-            }
+        viewModel.categoriesData.observe(requireActivity(), Observer {
+            binding.recyclerCategories.adapter= CategoryAdapter(it)
         })
 
+        viewModel.productData.observe(requireActivity(), Observer {
+            binding.recyclerProduct.adapter=ProductAdapter(it)
+        })
+            loadData()
     }
 
+   fun loadData() {
+      viewModel.getOffers()
+       viewModel.getCategors()
+       viewModel.getTopProducts()
+    }
 
 
     companion object {
