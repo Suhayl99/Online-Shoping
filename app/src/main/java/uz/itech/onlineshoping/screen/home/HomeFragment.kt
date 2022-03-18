@@ -65,6 +65,15 @@ class HomeFragment : Fragment() {
         viewModel.productData.observe(requireActivity(), Observer {
             binding.recyclerProduct.adapter=ProductAdapter(it)
         })
+
+        Thread({
+            var i=1000000000000000000L
+            while (i>0){
+                i--
+            }
+        }).start()
+
+
             loadData()
     }
 
