@@ -12,11 +12,11 @@ import java.util.*
 interface Api {
 
     @GET("get_offers")
-    fun getOffers(): Call<BaseResponse<List<OfferModel>>>
+    fun getOffers(): Observable<BaseResponse<List<OfferModel>>>
 
     @GET("get_categories")
-    fun getCategories(): Call<BaseResponse<List<CategoryModel>>>
+    fun getCategories():Observable<BaseResponse<List<CategoryModel>>>
 
     @GET("get_top_products")
-    fun getTopProducts(): Call<BaseResponse<List<ProductModel>>>
+    fun getTopProducts():Observable<BaseResponse<List<ProductModel>>>
 }
