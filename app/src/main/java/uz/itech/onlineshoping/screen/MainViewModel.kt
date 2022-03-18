@@ -12,16 +12,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import uz.itech.onlineshop.view.CategoryAdapter
 import uz.itech.onlineshop.view.ProductAdapter
 import uz.itech.onlineshoping.api.Api
+import uz.itech.onlineshoping.api.NetworkManager
 import uz.itech.onlineshoping.model.BaseResponse
 import uz.itech.onlineshoping.model.CategoryModel
 import uz.itech.onlineshoping.model.OfferModel
 import uz.itech.onlineshoping.model.ProductModel
+import uz.itech.onlineshoping.utils.Constans
 
 
 class MainViewModel: ViewModel() {
-    val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("http://osonsavdo.devapp.uz/api/").build()
-    val api= retrofit!!.create(Api::class.java)
 
     val error= MutableLiveData<String>()
     val offersData= MutableLiveData<List<OfferModel>>()
@@ -29,7 +28,7 @@ class MainViewModel: ViewModel() {
     val productData= MutableLiveData<List<ProductModel>>()
 
     fun getOffers(){
-        api.getOffers().enqueue(object : Callback<BaseResponse<List<OfferModel>>> {
+        NetworkManager.getApiService()!!.getOffers().enqueue(object : Callback<BaseResponse<List<OfferModel>>> {
             override fun onResponse(
                 call: Call<BaseResponse<List<OfferModel>>>,
                 response: Response<BaseResponse<List<OfferModel>>>
@@ -47,7 +46,7 @@ class MainViewModel: ViewModel() {
         })
     }
     fun getCategors() {
-        api.getCategories().enqueue(object : Callback<BaseResponse<List<CategoryModel>>>{
+        NetworkManager.getApiService()!!.getCategories().enqueue(object : Callback<BaseResponse<List<CategoryModel>>>{
             override fun onResponse(
                 call: Call<BaseResponse<List<CategoryModel>>>,
                 response: Response<BaseResponse<List<CategoryModel>>>
@@ -66,7 +65,7 @@ class MainViewModel: ViewModel() {
     }
 
     fun getTopProducts() {
-        api.getTopProducts().enqueue(object : Callback<BaseResponse<List<ProductModel>>>{
+        NetworkManager.getApiService()!!.getTopProducts().enqueue(object : Callback<BaseResponse<List<ProductModel>>>{
 
             override fun onResponse(
                 call: Call<BaseResponse<List<ProductModel>>>,

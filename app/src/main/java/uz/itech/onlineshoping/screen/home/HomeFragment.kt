@@ -25,6 +25,7 @@ import uz.itech.onlineshoping.model.CategoryModel
 import uz.itech.onlineshoping.model.OfferModel
 import uz.itech.onlineshoping.model.ProductModel
 import uz.itech.onlineshoping.screen.MainViewModel
+import uz.itech.onlineshoping.utils.Constans
 
 class HomeFragment : Fragment() {
     lateinit var viewModel:MainViewModel
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
 
         viewModel.offersData.observe(requireActivity(), Observer {
             binding.carouselView.setImageListener { position, imageView ->
-                Glide.with(imageView).load("http://osonsavdo.devapp.uz/images/${it[position].image}").into(imageView)
+                Glide.with(imageView).load(Constans.HOST_IMAGE+it[position].image).into(imageView)
             }
             binding.carouselView.pageCount= it.count()
         })
