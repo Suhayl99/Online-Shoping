@@ -29,7 +29,7 @@ class MainViewModel: ViewModel() {
     val productData=MutableLiveData<List<ProductModel>>()
     var progress= MutableLiveData<Boolean>()
     fun getOffers(){
-        repository.getOffers(error, offersData)
+        repository.getOffers(error, progress, offersData)
     }
     fun getCategors() {
         repository.getCategors(error,categoriesData)

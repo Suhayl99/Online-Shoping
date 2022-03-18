@@ -46,7 +46,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerCategories.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerProduct.layoutManager=LinearLayoutManager(requireContext())
-
+        binding.swipe.setOnRefreshListener {
+            loadData()
+        }
         viewModel.error.observe(requireActivity(), Observer {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         })
@@ -66,14 +68,9 @@ class HomeFragment : Fragment() {
             binding.recyclerProduct.adapter=ProductAdapter(it)
         })
 
-        Thread({
-            var i=1000000000000000000L
-            while (i>0){
-                i--
-            }
-        }).start()
-
-
+        viewModel.progress.observe(requireActivity(), Observer {
+            binding.swipe.isRefreshing=it
+        })
             loadData()
     }
 

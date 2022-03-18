@@ -12,22 +12,26 @@ import uz.itech.onlineshoping.model.ProductModel
 
 class ShopRepository {
 
-    fun getOffers(error:MutableLiveData<String>, success:MutableLiveData<List<OfferModel>>){
+    fun getOffers(error:MutableLiveData<String>, progress: MutableLiveData<Boolean> , success:MutableLiveData<List<OfferModel>>){
+        progress.value=true
         NetworkManager.getApiService()!!.getOffers().enqueue(object :
             Callback<BaseResponse<List<OfferModel>>> {
             override fun onResponse(
                 call: Call<BaseResponse<List<OfferModel>>>,
                 response: Response<BaseResponse<List<OfferModel>>>
             ) {
+                progress.value=false
                 if (response.isSuccessful && response.body()!!.success){
                     success.value= response.body()!!.data
                 }else{
                     error.value= response.body()?.message
                 }
+
             }
 
             override fun onFailure(call: Call<BaseResponse<List<OfferModel>>>, t: Throwable) {
                 error.value=t.localizedMessage
+                progress.value=false
             }
         })
     }
