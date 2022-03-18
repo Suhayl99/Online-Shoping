@@ -16,6 +16,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import uz.itech.onlineshop.view.CategoryAdapter
+import uz.itech.onlineshop.view.CategoryAdapterCallback
 import uz.itech.onlineshop.view.ProductAdapter
 import uz.itech.onlineshoping.R
 import uz.itech.onlineshoping.api.Api
@@ -60,16 +61,21 @@ class HomeFragment : Fragment() {
             binding.carouselView.pageCount= it.count()
         })
 
-        viewModel.categoriesData.observe(requireActivity(), Observer {
-            binding.recyclerCategories.adapter= CategoryAdapter(it)
-        })
-
         viewModel.productData.observe(requireActivity(), Observer {
             binding.recyclerProduct.adapter=ProductAdapter(it)
         })
 
         viewModel.progress.observe(requireActivity(), Observer {
             binding.swipe.isRefreshing=it
+        })
+
+        viewModel.categoriesData.observe(requireActivity(), Observer {
+            binding.recyclerCategories.adapter= CategoryAdapter(it, object:CategoryAdapterCallback{
+                override fun onClickItem(item: CategoryModel) {
+                    viewModel.getProductsByCategory(item.id)
+                }
+
+            })
         })
             loadData()
     }

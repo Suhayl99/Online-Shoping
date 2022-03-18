@@ -38,4 +38,8 @@ class MainViewModel: ViewModel() {
     fun getTopProducts() {
         repository.getTopProducts(error,productData)
     }
+
+    fun getProductsByCategory(id:Int){
+        repository.getProductsByCategory(id,error,productData)
+    }
 }

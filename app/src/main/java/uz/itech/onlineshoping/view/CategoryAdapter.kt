@@ -11,10 +11,10 @@ import uz.itech.onlineshoping.R
 import uz.itech.onlineshoping.databinding.CategoryItemLayoutBinding
 import uz.itech.onlineshoping.model.CategoryModel
 
-//interface CategoryAdapterCallback{
-//    fun onClickItem(item: CategoryModel)
-//}
-class CategoryAdapter(var items:List<CategoryModel> /*,val callback:CategoryAdapterCallback */):RecyclerView.Adapter<CategoryAdapter.ItemHolder> (){
+interface CategoryAdapterCallback{
+    fun onClickItem(item: CategoryModel)
+}
+class CategoryAdapter(var items:List<CategoryModel>, val callback:CategoryAdapterCallback):RecyclerView.Adapter<CategoryAdapter.ItemHolder> (){
    inner class ItemHolder( val binding: CategoryItemLayoutBinding):RecyclerView.ViewHolder(binding.root)
 
 
@@ -31,7 +31,7 @@ class CategoryAdapter(var items:List<CategoryModel> /*,val callback:CategoryAdap
                 it.checked=false
             }
             item.checked=true
-         //   callback.onClickItem(item)
+         callback.onClickItem(item)
             notifyDataSetChanged()
         }
         if (item.checked){
