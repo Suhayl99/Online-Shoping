@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:id="@+id/cardView"
+        android:padding="@dimen/_8sdp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/gray"
+        app:cardCornerRadius="@dimen/_24sdp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum"
+            android:textSize="@dimen/_16sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:id="@+id/tvTitle"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+    </androidx.cardview.widget.CardView>
+
+
+</FrameLayout>
