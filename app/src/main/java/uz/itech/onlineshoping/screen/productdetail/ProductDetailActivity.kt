@@ -35,9 +35,9 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.tvProductName.text=item.name
         binding.tvProductPrice.text=item.price
         binding.tvProductComment.text= item.name+" -- "+item.price
-//        if (PrefUtils.getCartCount(item)>0){
-//            binding.Add2Cart.visibility= View.GONE
-//        }
+        if (PrefUtils.getCartCount(item)>0){
+            binding.Add2Cart.visibility= View.GONE
+        }
         Glide.with(this).load(Constans.HOST_IMAGE+item.image).into(binding.imageProduct)
         if (PrefUtils.checkFavorite(item)){
             binding.imageFavorite.setImageResource(R.drawable.ic_heart)
@@ -46,8 +46,7 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         binding.Add2Cart.setOnClickListener {
-            item.cartCount=1
-          //  PrefUtils.setCart(item)
+            PrefUtils.setCart(item)
             Toast.makeText(this,"Product added to cart!", Toast.LENGTH_LONG).show()
             finish()
         }
