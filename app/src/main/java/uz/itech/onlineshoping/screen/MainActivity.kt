@@ -1,5 +1,6 @@
 package uz.itech.onlineshoping.screen
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import uz.itech.onlineshoping.screen.cart.CartFragment
 import uz.itech.onlineshoping.screen.favorite.FavoriteFragment
 import uz.itech.onlineshoping.screen.home.HomeFragment
 import uz.itech.onlineshoping.screen.profil.ProfilFragment
+import uz.itech.onlineshoping.utils.LocaleManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -41,5 +43,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flContener,fragment)
             commit()
+    }
+
+    override fun attachBaseContext(newBase: Context?){
+        super.attachBaseContext(LocaleManager.setLocale(newBase))
     }
 }

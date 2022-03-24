@@ -1,5 +1,6 @@
 package uz.itech.onlineshoping.screen.makeorder
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import uz.itech.onlineshoping.model.AddressModel
 import uz.itech.onlineshoping.model.ProductModel
 import uz.itech.onlineshoping.screen.MainActivity
 import uz.itech.onlineshoping.utils.Constans
+import uz.itech.onlineshoping.utils.LocaleManager
 
 class MakeOrderActivity : AppCompatActivity() {
     private var _binding: ActivityMakeOrderBinding? = null
@@ -54,5 +56,7 @@ class MakeOrderActivity : AppCompatActivity() {
         this.address=address
         binding.edAddress.setText("${address.latitude}, ${address.longitude}")
     }
-
+    override fun attachBaseContext(newBase: Context?){
+        super.attachBaseContext(LocaleManager.setLocale(newBase))
+    }
 }

@@ -1,5 +1,6 @@
 package uz.itech.onlineshoping.screen.productdetail
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import uz.itech.onlineshoping.R
 import uz.itech.onlineshoping.databinding.ActivityProductDetailBinding
 import uz.itech.onlineshoping.model.ProductModel
 import uz.itech.onlineshoping.utils.Constans
+import uz.itech.onlineshoping.utils.LocaleManager
 import uz.itech.onlineshoping.utils.PrefUtils
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -50,5 +52,9 @@ class ProductDetailActivity : AppCompatActivity() {
             Toast.makeText(this,"Product added to cart!", Toast.LENGTH_LONG).show()
             finish()
         }
+    }
+
+    override fun attachBaseContext(newBase: Context?){
+        super.attachBaseContext(LocaleManager.setLocale(newBase))
     }
 }

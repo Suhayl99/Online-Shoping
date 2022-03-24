@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Online Shoping</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Harita</string>
+    <string name="make_order">Buyurtma berish</string>
+    <string name="confirm_address">Manzilni tasdiqlang</string>
+    <string name="add_to_cart">Savatchaga qo\'shish</string>
+</resources>
