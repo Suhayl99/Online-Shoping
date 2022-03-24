@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import uz.itech.onlineshoping.R
 import uz.itech.onlineshoping.databinding.ProductItemLayoutBinding
 import uz.itech.onlineshoping.model.ProductModel
+import uz.itech.onlineshoping.screen.productdetail.ProductDetailActivity
+import uz.itech.onlineshoping.utils.Constans
 
 class ProductAdapter(val items:List<ProductModel>):RecyclerView.Adapter<ProductAdapter.ItemHolder>() {
    inner class ItemHolder(val binding:ProductItemLayoutBinding):RecyclerView.ViewHolder(binding.root)
@@ -20,11 +22,11 @@ class ProductAdapter(val items:List<ProductModel>):RecyclerView.Adapter<ProductA
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val item=items[position]
-//        holder.itemView.setOnClickListener {
-//            val intent=Intent(it.context,ProductDetailActivity::class.java)
-//            intent.putExtra(Constans.EXTA_DATA,item)
-//            holder.itemView.context.startActivity(intent)
-//        }
+        holder.itemView.setOnClickListener {
+            val intent=Intent(it.context, ProductDetailActivity::class.java)
+            intent.putExtra(Constans.EXTA_DATA,item)
+            holder.itemView.context.startActivity(intent)
+        }
         Glide.with(holder.binding.imgProduct).load("http://osonsavdo.devapp.uz/images/${items[position].image}").into(holder.binding.imgProduct)
         holder.binding.tvName.text=item.name
         holder.binding.tvPrice.text=item.price
