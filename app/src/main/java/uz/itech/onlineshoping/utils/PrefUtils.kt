@@ -1,7 +1,6 @@
 package uz.itech.onlineshoping.utils
 
 import com.orhanobut.hawk.Hawk
-import uz.itech.onlineshoping.model.CartModel
 import uz.itech.onlineshoping.model.ProductModel
 
 object PrefUtils {
@@ -27,28 +26,28 @@ fun setFavorite(item: ProductModel){
         return items.filter { it== item.id}.firstOrNull()!=null
     }
 
-    fun setCart(item:ProductModel){
-        val items=Hawk.get<ArrayList<CartModel>>(PREF_CART, arrayListOf<CartModel>())
-        val cart=items.filter { it.product_id==item.id }.firstOrNull()
-        if (cart!=null){
-            if (item.cartCount > 0){
-                cart.count=item.cartCount
-            }else{
-                items.remove(cart)
-            }
-        }else{
-            val newCart=CartModel(item.id,item.cartCount)
-            items.add(newCart)
-        }
-        Hawk.put(PREF_CART,items)
-    }
-
-    fun getCartList():ArrayList<CartModel>{
-        return Hawk.get(PREF_CART, arrayListOf<CartModel>())
-    }
-
-    fun getCartCount(item: ProductModel):Int{
-        val items=Hawk.get<ArrayList<CartModel>>(PREF_CART, arrayListOf<CartModel>())
-        return items.filter { it.product_id==item.id }.firstOrNull()?.count?:0
-    }
+//    fun setCart(item:ProductModel){
+//        val items=Hawk.get<ArrayList<CartModel>>(PREF_CART, arrayListOf<CartModel>())
+//        val cart=items.filter { it.product_id==item.id }.firstOrNull()
+//        if (cart!=null){
+//            if (item.cartCount > 0){
+//                cart.count=item.cartCount
+//            }else{
+//                items.remove(cart)
+//            }
+//        }else{
+//            val newCart=CartModel(item.id,item.cartCount)
+//            items.add(newCart)
+//        }
+//        Hawk.put(PREF_CART,items)
+//    }
+//
+//    fun getCartList():ArrayList<CartModel>{
+//        return Hawk.get(PREF_CART, arrayListOf<CartModel>())
+//    }
+//
+//    fun getCartCount(item: ProductModel):Int{
+//        val items=Hawk.get<ArrayList<CartModel>>(PREF_CART, arrayListOf<CartModel>())
+//        return items.filter { it.product_id==item.id }.firstOrNull()?.count?:0
+//    }
 }

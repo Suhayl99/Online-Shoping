@@ -49,7 +49,6 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerProduct.layoutManager= LinearLayoutManager(requireContext())
         loadData()
-
         binding.swipe.setOnRefreshListener {
             loadData()
         }

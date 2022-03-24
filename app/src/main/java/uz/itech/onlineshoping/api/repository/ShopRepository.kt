@@ -126,7 +126,7 @@ class ShopRepository {
                     progress.value=false
                     if (t.success){
                         t.data.forEach {
-                            it.cartCount = PrefUtils.getCartCount(it)
+                            //it.cartCount = PrefUtils.getCartCount(it)
                         }
                         success.value=t.data
                     }else{

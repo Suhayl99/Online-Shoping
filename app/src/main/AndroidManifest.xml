@@ -13,9 +13,6 @@
         android:theme="@style/Theme.OnlineShoping"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".screen.makeorder.MakeOrderActivity"
-            android:exported="false" />
-        <activity
             android:name=".screen.productdetail.ProductDetailActivity"
             android:exported="false" />
         <activity
