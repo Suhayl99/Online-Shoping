@@ -67,7 +67,8 @@ class CartFragment : Fragment() {
     }
 
     fun loadData() {
-        viewModel.getProductsByIds(PrefUtils.getCartList().map { it.product_id })
+
+        viewModel.getProductsByIds( PrefUtils.getCartList().map { it.product_id })
     }
 
     companion object {

@@ -13,5 +13,6 @@ class MakeOrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding= ActivityMakeOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
     }
 }
