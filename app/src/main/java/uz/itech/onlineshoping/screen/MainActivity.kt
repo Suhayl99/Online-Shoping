@@ -3,6 +3,7 @@ package uz.itech.onlineshoping.screen
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.orhanobut.hawk.Hawk
 import uz.itech.onlineshoping.R
 import uz.itech.onlineshoping.databinding.ActivityMainBinding
 import uz.itech.onlineshoping.screen.cart.CartFragment
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Hawk.init(this).build()
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val homeFragment=HomeFragment()

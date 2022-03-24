@@ -12,6 +12,8 @@ import uz.itech.onlineshoping.model.BaseResponse
 import uz.itech.onlineshoping.model.CategoryModel
 import uz.itech.onlineshoping.model.OfferModel
 import uz.itech.onlineshoping.model.ProductModel
+import uz.itech.onlineshoping.model.request.GetProductsByIdsRequest
+import uz.itech.onlineshoping.utils.PrefUtils
 
 class ShopRepository {
     val compositeDisposable= CompositeDisposable()
@@ -87,5 +89,62 @@ class ShopRepository {
 
             }))
     }
+    fun getProductsByCategory(id:Int, error: MutableLiveData<String>,success: MutableLiveData<List<ProductModel>>) {
+        compositeDisposable.add(NetworkManager.getApiService()!!.getCategoryProducts(id)
+            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : DisposableObserver<BaseResponse<List<ProductModel>>>(){
+                override fun onNext(t: BaseResponse<List<ProductModel>>) {
+                    if (t.success){
+                        success.value=t.data
+                    }else{
+                        error.value=t.message
+                    }
+                }
 
+                override fun onError(e: Throwable) {
+                    error.value=e.localizedMessage
+                }
+
+                override fun onComplete() {
+
+                }
+
+
+            })
+        )
+    }
+
+    fun getProductsByIds(ids:List<Int>, error: MutableLiveData<String>, progress: MutableLiveData<Boolean>, success: MutableLiveData<List<ProductModel>>) {
+        progress.value=true
+        compositeDisposable.add(NetworkManager.getApiService()!!.getProductsByIds(GetProductsByIdsRequest(ids)
+        )
+            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : DisposableObserver<BaseResponse<List<ProductModel>>>(){
+                override fun onNext(t: BaseResponse<List<ProductModel>>) {
+                    progress.value=false
+                    if (t.success){
+                        t.data.forEach {
+                            //it.cartCount = PrefUtils.getCartCount(it)
+                        }
+                        success.value=t.data
+                    }else{
+                        error.value=t.message
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    progress.value=false
+                    error.value=e.localizedMessage
+                }
+
+                override fun onComplete() {
+
+                }
+
+
+            })
+        )
+    }
 }

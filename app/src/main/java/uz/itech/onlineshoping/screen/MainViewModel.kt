@@ -42,4 +42,8 @@ class MainViewModel: ViewModel() {
     fun getProductsByCategory(id:Int){
         repository.getProductsByCategory(id,error,productData)
     }
+
+    fun getProductsByIds(ids:List<Int>){
+        repository.getProductsByIds(ids,error,progress, productData)
+    }
 }
