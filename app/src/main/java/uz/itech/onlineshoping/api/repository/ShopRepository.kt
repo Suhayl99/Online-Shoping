@@ -88,33 +88,4 @@ class ShopRepository {
             }))
     }
 
-
-    fun getProductsByCategory(id:Int, error: MutableLiveData<String>,success: MutableLiveData<List<ProductModel>>) {
-        compositeDisposable.add(
-            NetworkManager.getApiService()!!.getCategoryProducts(id)
-            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableObserver<BaseResponse<List<ProductModel>>>(){
-                override fun onNext(t: BaseResponse<List<ProductModel>>) {
-                    if (t.success){
-                        success.value=t.data
-                    }else{
-                        error.value=t.message
-                    }
-                }
-
-                override fun onError(e: Throwable) {
-                    error.value=e.localizedMessage
-                }
-
-                override fun onComplete() {
-
-                }
-
-
-            })
-        )
-    }
-
-
 }
