@@ -1,5 +1,6 @@
 package uz.itech.onlineshoping
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -13,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import org.greenrobot.eventbus.EventBus
 import uz.itech.onlineshoping.databinding.ActivityMapsBinding
 import uz.itech.onlineshoping.model.AddressModel
+import uz.itech.onlineshoping.utils.LocaleManager
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -41,5 +43,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+    }
+
+    override fun attachBaseContext(newBase: Context?){
+        super.attachBaseContext(LocaleManager.setLocale(newBase))
     }
 }

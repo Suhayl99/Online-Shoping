@@ -8,6 +8,7 @@ import com.orhanobut.hawk.Hawk
 import uz.itech.onlineshoping.R
 import uz.itech.onlineshoping.databinding.ActivityMainBinding
 import uz.itech.onlineshoping.screen.cart.CartFragment
+import uz.itech.onlineshoping.screen.changelanguage.ChangeLanguageFragment
 import uz.itech.onlineshoping.screen.favorite.FavoriteFragment
 import uz.itech.onlineshoping.screen.home.HomeFragment
 import uz.itech.onlineshoping.screen.profil.ProfilFragment
@@ -18,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Hawk.init(this).build()
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val homeFragment=HomeFragment()
@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.actionUser ->setCurrentFragment(profilFragment)
             }
             true
+        }
+
+        binding.btnMenyu.setOnClickListener {
+            val fragment= ChangeLanguageFragment.newInstance()
+            fragment.show(supportFragmentManager, fragment.tag)
         }
 
     }

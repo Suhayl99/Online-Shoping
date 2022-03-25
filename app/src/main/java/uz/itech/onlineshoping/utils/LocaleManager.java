@@ -7,11 +7,11 @@ import android.os.Build;
 import android.util.Log;
 
 import com.orhanobut.hawk.Hawk;
+import com.orhanobut.hawk.LogInterceptor;
 
 import java.util.Locale;
 
 public class LocaleManager {
-
     public static Context setLocale(Context mContext){
         Log.d("prefs",getLanguagePref(mContext));
     return updateResources(mContext, getLanguagePref(mContext));
