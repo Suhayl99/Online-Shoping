@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShoping"
         android:usesCleartextTraffic="true">
-
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -39,8 +38,10 @@
         <activity
             android:name=".screen.makeorder.MakeOrderActivity"
             android:exported="false" />
+        <activity android:name=".screen.MainActivity"
+            android:exported="false"/>
         <activity
-            android:name=".screen.MainActivity"
+            android:name=".screen.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
