@@ -80,8 +80,10 @@ class HomeFragment : Fragment() {
 
    fun loadData() {
       viewModel.getOffers()
-       viewModel.getCategors()
-       viewModel.getTopProducts()
+       viewModel.getAllDBCategories()
+       //  viewModel.getCategors()
+       viewModel.getAllDBProducts()
+       //   viewModel.getTopProducts()
     }
 
 
