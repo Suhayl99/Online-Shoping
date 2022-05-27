@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import uz.itech.onlineshoping.MapsActivity
@@ -29,6 +30,11 @@ class MakeOrderActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             finish()
             startActivity(Intent(this, MainActivity::class.java))
+        }
+        binding.btnMakeOrder.setOnClickListener {
+            Toast.makeText(this, "Buyurma qabul qilindi", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         items=intent.getSerializableExtra(Constans.EXTA_DATA) as List<ProductModel>

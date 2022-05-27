@@ -21,6 +21,11 @@
         <entry key="..\:/Users/user/Documents/OnlineShoping/app/src/main/res/layout/fragment_profil.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Documents/OnlineShoping/app/src/main/res/layout/product_item_layout.xml" value="0.14814814814814814" />
         <entry key="..\:/Users/user/Documents/OnlineShoping/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/layout/activity_make_order.xml" value="0.17028985507246377" />
+        <entry key="app/src/main/res/layout/activity_otpvalidation.xml" value="0.17028985507246377" />
+        <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.32883317261330763" />
+        <entry key="app/src/main/res/layout/fragment_profil.xml" value="0.17028985507246377" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1215" />
       </map>
     </option>
   </component>
